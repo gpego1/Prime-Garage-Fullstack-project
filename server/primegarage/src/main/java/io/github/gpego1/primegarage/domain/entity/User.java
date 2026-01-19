@@ -2,6 +2,7 @@ package io.github.gpego1.primegarage.domain.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class User {
 
     private String name;
     private String mobileNumber;
-    private Date dateOfBirth;
+    private LocalDateTime dateOfBirth;
 
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "address_id")
