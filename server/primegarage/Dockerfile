@@ -1,6 +1,6 @@
 FROM eclipse-temurin:21-jdk
 
-WORKDIR /app
+WORKDIR /backend-api
 
 LABEL authors="gpego1"
 

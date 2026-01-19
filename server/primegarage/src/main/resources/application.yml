@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: primemotors
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/primegaragedb
+    username: postgres
+    password: 1508
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.PostgreSQLDialect
