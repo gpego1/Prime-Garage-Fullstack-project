@@ -1,0 +1,34 @@
+hr {
+    border: none;
+    margin-top: 50px;
+    height: 1px;
+    background-color: #ccc;
+}
+.layout {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    margin-top: 40px;
+
+    max-width: 1400px;
+    margin-inline: auto; /* centraliza o layout */
+}
+
+.banner-wrapper {
+    margin-left: 200px; /* controle fino */
+}
+@media (max-width: 1024px) {
+    .banner-wrapper {
+        margin-left: 80px;
+    }
+}
+
+@media (max-width: 768px) {
+    .layout {
+        flex-direction: column;
+    }
+
+    .banner-wrapper {
+        margin-left: 0;
+    }
+}

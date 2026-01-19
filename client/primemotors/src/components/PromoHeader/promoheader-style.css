@@ -1,0 +1,19 @@
+.promo-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    top: 20px;
+    padding: 1rem 2rem;
+    gap: 1rem;
+}
+.promo-header p {
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.promo-header a {
+    text-decoration: underline;
+    color: #fff;
+}
