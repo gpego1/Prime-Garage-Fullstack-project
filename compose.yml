@@ -1,0 +1,40 @@
+services:
+  db:
+    image: postgres:16
+    container_name: db-primeGarage
+    environment:
+      POSTGRES_DB: primegaragedb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "1508"
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - primeGarage
+
+  backend:
+    image: eclipse-temurin:21-jdk
+    container_name: backend-primeGarage
+    ports:
+      - "5000:5000"
+    networks:
+      - primeGarage
+    depends_on:
+      - db
+
+  frontend:
+    image: node:22-alpine
+    container_name: frontend-primeGarage
+    ports:
+      - "5173:3000"
+    networks:
+      - primeGarage
+    
+  
+networks:
+  primeGarage:
+    driver: bridge
+
+volumes:
+  pgdata:
