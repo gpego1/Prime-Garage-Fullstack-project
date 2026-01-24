@@ -1,0 +1,28 @@
+info:
+  name: register
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:5000/auth/register
+  body:
+    type: json
+    data: |
+      {
+        "username": "user@email.com",
+        "password": "user123",
+        "name": "User One",
+        "phone": "199282918",
+        "birthDate": "2006-08-15T00:00:00"
+      }
+  auth:
+    type: basic
+    username: user
+    password: 3814821a-80f4-44ee-9d93-275bd695ac36
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

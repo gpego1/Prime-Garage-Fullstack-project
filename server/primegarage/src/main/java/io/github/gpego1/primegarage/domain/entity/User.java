@@ -1,17 +1,12 @@
 package io.github.gpego1.primegarage.domain.entity;
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
+@Getter @Setter
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,5 +26,14 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Order> orders;
 
+    public User() {}
+
+    public User(String username, String password, String name, String mobileNumber, LocalDateTime dateOfBirth) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.mobileNumber = mobileNumber;
+        this.dateOfBirth = dateOfBirth;
+    }
 //    private List<?> roles;
 }
