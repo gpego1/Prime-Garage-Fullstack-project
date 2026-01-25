@@ -28,7 +28,7 @@ public class UserServiceTest {
     private UserService userService;
 
     @Mock
-    private AuthService authService;
+    private AuthServiceTest authService;
 
     @Test
     public void registerUser()

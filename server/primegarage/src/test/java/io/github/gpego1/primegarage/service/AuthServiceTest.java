@@ -4,7 +4,7 @@ import io.github.gpego1.primegarage.domain.dto.response.RegisterResponse;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AuthService {
+public class AuthServiceTest {
 
     public RegisterResponse register(RegisterRequest registerRequest) {
         return new RegisterResponse(
