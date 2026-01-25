@@ -1,12 +1,20 @@
 package io.github.gpego1.primegarage.domain.controller;
+import io.github.gpego1.primegarage.domain.dto.request.LoginRequest;
 import io.github.gpego1.primegarage.domain.dto.request.RegisterRequest;
+import io.github.gpego1.primegarage.domain.dto.response.LoginResponse;
 import io.github.gpego1.primegarage.domain.dto.response.RegisterResponse;
 import io.github.gpego1.primegarage.domain.entity.User;
+import io.github.gpego1.primegarage.domain.service.AuthService;
+import io.github.gpego1.primegarage.domain.service.JwtService;
 import io.github.gpego1.primegarage.domain.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,8 +27,15 @@ import java.time.LocalDateTime;
 @RequestMapping("/auth")
 public class AuthController implements GenericController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private final AuthenticationManager authenticationManager;
+    private final JwtService jwtService;
+
+    public AuthController(UserService userService, AuthenticationManager authenticationManager, JwtService jwtService) {
+        this.userService = userService;
+        this.authenticationManager = authenticationManager;
+        this.jwtService = jwtService;
+    }
 
     @PostMapping("/register")
     public ResponseEntity<RegisterResponse> register(@RequestBody @Valid RegisterRequest registerRequest) {
@@ -29,5 +44,17 @@ public class AuthController implements GenericController {
         return ResponseEntity
                  .created(headerURI)
                 .body(new RegisterResponse(registeredUser.getUsername(), registeredUser.getPassword()));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@RequestBody @Valid LoginRequest loginRequest) {
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(loginRequest.username(), loginRequest.password());
+        Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+
+        User user = (User) authentication.getPrincipal();
+        String token = jwtService.generateToken(user);
+
+        return ResponseEntity.ok(new LoginResponse(token));
+
     }
 }
