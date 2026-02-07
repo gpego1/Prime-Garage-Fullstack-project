@@ -5,6 +5,7 @@ import {PromoHeader} from "./components/PromoHeader/index.jsx";
 import {CardPromo} from "./components/CardPromo/index.jsx";
 import {Footer} from "./components/Footer/index.jsx";
 import {StaticList} from "./components/StaticList/index.jsx";
+import RegisterForm from "./components/RegisterForm/index.jsx";
 
 function App() {
 
@@ -18,8 +19,9 @@ function App() {
               <div className="banner-wrapper">
                   <CardPromo />
               </div>
-
           </div>
+
+          {/*<RegisterForm username={"user2@email.com"} password={"user123"} />*/}
 
           <hr />
           <Footer />
