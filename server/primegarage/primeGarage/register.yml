@@ -5,21 +5,18 @@ info:
 
 http:
   method: POST
-  url: http://localhost:5000/auth/register
+  url: http://localhost:5000/auth/login
   body:
     type: json
     data: |
       {
         "username": "user@email.com",
-        "password": "user123",
-        "name": "User One",
-        "phone": "199282918",
-        "birthDate": "2006-08-15T00:00:00"
+        "password": "user123"
       }
   auth:
     type: basic
     username: user
-    password: 3814821a-80f4-44ee-9d93-275bd695ac36
+    password: e79e6e20-3d26-4c70-afba-3e48c4704aad
 
 settings:
   encodeUrl: true

@@ -24,6 +24,7 @@ public class UserService {
                 dto.username(),
                 this.passwordEncoder.encode(dto.password()),
                 dto.name(),
+                dto.role(),
                 dto.phone(),
                 dto.birthDate());
 

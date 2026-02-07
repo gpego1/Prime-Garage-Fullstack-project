@@ -4,24 +4,23 @@ import io.github.gpego1.primegarage.domain.dto.request.RegisterRequest;
 import io.github.gpego1.primegarage.domain.dto.response.LoginResponse;
 import io.github.gpego1.primegarage.domain.dto.response.RegisterResponse;
 import io.github.gpego1.primegarage.domain.entity.User;
-import io.github.gpego1.primegarage.domain.service.AuthService;
 import io.github.gpego1.primegarage.domain.service.JwtService;
 import io.github.gpego1.primegarage.domain.service.UserService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.net.URI;
-import java.time.LocalDateTime;
+import java.util.List;
+
+
 
 @RestController
 @RequestMapping("/auth")
@@ -47,14 +46,18 @@ public class AuthController implements GenericController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody @Valid LoginRequest loginRequest) {
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(loginRequest.username(), loginRequest.password());
-        Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+    public ResponseEntity<?> login(@RequestBody @Valid LoginRequest loginRequest) {
+        try {
+            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(loginRequest.username(), loginRequest.password());
+            Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 
-        User user = (User) authentication.getPrincipal();
-        String token = jwtService.generateToken(user);
+            User user = (User) authentication.getPrincipal();
+            String token = jwtService.generateToken(user);
 
-        return ResponseEntity.ok(new LoginResponse(token));
-
+            return ResponseEntity.ok(List.of(new LoginResponse(token), "User successfully logged in"));
+        } catch (AuthenticationException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(List.of("message", "Invalid username or password"));
+        }
     }
 }
