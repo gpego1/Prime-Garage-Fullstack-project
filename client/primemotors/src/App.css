@@ -11,11 +11,11 @@ hr {
     margin-top: 40px;
 
     max-width: 1400px;
-    margin-inline: auto; /* centraliza o layout */
+    margin-inline: auto; 
 }
 
 .banner-wrapper {
-    margin-left: 200px; /* controle fino */
+    margin-left: 200px;
 }
 @media (max-width: 1024px) {
     .banner-wrapper {
